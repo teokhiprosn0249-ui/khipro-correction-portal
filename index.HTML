@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KHIPRO - EMPLOYEE SELF CORRECTION PORTAL</title>
+<style>
+*{box-sizing:border-box;font-family:Segoe UI,Arial,sans-serif}
+body{margin:0;background:#eef3f8}
+.topbar{background:linear-gradient(90deg,#0f5a28,#0a4a1f);color:white;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;position:sticky;top:0;z-index:10}
+.topbar h1{font-size:13px;margin:0;font-weight:800}
+.topbar small{font-size:10px;opacity:.9;display:block}
+.btns{display:flex;gap:6px}
+.btns button{padding:6px 12px;border:none;border-radius:4px;font-size:11px;font-weight:700;cursor:pointer}
+.b-home{background:#3b82f6;color:white}.b-emp{background:#0284c7;color:white}.b-admin{background:#dc2626;color:white}
+.container{max-width:1050px;margin:16px auto;padding:0 12px}
+.card{background:white;border-radius:10px;padding:18px;box-shadow:0 2px 12px rgba(0,0,0,.06);margin-bottom:16px}
+.center{text-align:center;font-weight:700;color:#0f4a8a;font-size:14px;margin:6px 0 14px 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){.two{grid-template-columns:1fr}}
+.box{border-radius:8px;padding:12px;font-size:12px}
+.eb{background:#e0f2fe;border:1px solid #7dd3fc}
+.ab{background:#ffedd5;border:1px solid #fdba74}
+.box h3{margin:0 0 6px 0;font-size:13px}
+.box ol{margin:0;padding-left:18px;line-height:18px;color:#334155}
+.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:14px;text-align:center}
+.st{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px}
+.st b{font-size:17px;display:block}
+.st span{font-size:11px;color:#64748b}
+label{font-size:10px;font-weight:800;color:#334155;text-transform:uppercase;display:block;margin:8px 0 3px 0}
+input,select{width:100%;padding:9px;border:1.4px solid #cbd5e1;border-radius:6px;font-size:13px}
+input:disabled{background:#e2e8f0!important;font-weight:800;border:2px solid #64748b;color:#0f172a}
+.lock{font-size:8px;background:#fee2e2;color:#991b1b;padding:1px 5px;border-radius:3px;border:1px solid #fecaca}
+.edit{font-size:8px;background:#dcfce7;color:#166534;padding:1px 5px;border-radius:3px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+@media(max-width:900px){.g3{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.g3{grid-template-columns:1fr}}
+.btnG{background:#16a34a;color:white;border:none;padding:11px;width:100%;border-radius:7px;font-weight:800;margin-top:14px;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="topbar">
+<div><h1>KHIPRO - EMPLOYEE SELF CORRECTION PORTAL</h1><small>Employee correction khud kare | Admin YES kare ho | NO EMAIL - DIRECT OPEN</small></div>
+<div class="btns">
+<button class="b-home" onclick="show('home')">Home</button>
+<button class="b-emp" onclick="show('elogin')">Employee Login</button>
+<button class="b-admin" onclick="show('alogin')">Admin</button>
+</div>
+</div>
+<div class="container">
+<div id="home" class="card">
+<div class="center">🔵 Employee Self Correction Website - NO EMAIL DIRECT OPEN</div>
+<div class="two">
+<div class="box eb"><h3>👤 Employee</h3><ol><li>P.ID / CNIC se login - NO EMAIL</li><li>Data dekhega - P.ID LOCKED</li><li>Ghalat field correct karega - Calendar se</li><li>Submit Request - Direct Admin ko jayega</li></ol></div>
+<div class="box ab"><h3>👨‍💼 Admin (Aap)</h3><ol><li>Password: <b>admin123</b> - NO EMAIL</li><li>Teaching allowance dekhega</li><li>YES Approve → correct ho jayega</li><li>Export to Excel → Final Master</li></ol></div>
+</div>
+<div class="stats">
+<div class="st"><b id="tT">1492</b><span>Total</span></div>
+<div class="st"><b id="tP">0</b><span>Pending</span></div>
+<div class="st"><b id="tA">2</b><span>Approved</span></div>
+</div>
+</div>
+<div id="elogin" class="card" style="display:none">
+<h3 style="margin:0">Employee Login - NO EMAIL NEEDED</h3><p style="font-size:12px;color:#64748b">Sirf P.ID # likhein - Example 11055428 - Email nahi mangega</p>
+<div style="display:flex;gap:10px;max-width:500px"><input id="pidIn" placeholder="P.ID #"><button onclick="empLogin()" style="background:#0f172a;color:white;border:none;padding:9px 16px;border-radius:6px;font-weight:700;cursor:pointer">Search</button></div>
+<div id="eMsg" style="color:red;font-size:12px;margin-top:8px"></div>
+</div><div id="eform" class="card" style="display:none">
+<div style="display:flex;justify-content:space-between"><h3 id="wel" style="margin:0"></h3><button onclick="show('home')" style="background:#0f172a;color:white;border:none;padding:5px 12px;border-radius:6px;cursor:pointer">Logout</button></div>
+<div id="sub" style="font-size:11px;color:#64748b;margin:5px 0 10px 0"></div>
+<div class="g3">
+<div><label>Sr.No <span class="edit">EDITABLE</span></label><input id="f0"></div>
+<div><label>Reg ID <span class="edit">EDITABLE</span></label><input id="f1"></div>
+<div><label>Employee Name <span class="edit">EDITABLE</span></label><input id="f2"></div>
+<div><label>Father Name <span class="edit">EDITABLE</span></label><input id="f3"></div>
+<div><label>Gender <span class="edit">EDITABLE</span></label><select id="f4"><option>Male</option><option>Female</option></select></div>
+<div><label>P.ID # <span class="lock">LOCKED - FREEZE</span></label><input id="f5" disabled></div>
+<div><label>CNIC NO. <span class="edit">EDITABLE</span></label><input id="f6"></div>
+<div><label>Bank Name <span class="edit">EDITABLE</span></label><input id="f7"></div>
+<div><label>Bank Account No <span class="edit">EDITABLE</span></label><input id="f8"></div>
+<div><label>DOB <span class="edit">CALENDAR</span></label><input id="f9" type="date"></div>
+<div><label>Date of Joining <span class="edit">CALENDAR</span></label><input id="f10" type="date"></div>
+<div><label>GRADUATION <span class="edit">EDITABLE</span></label><input id="f11"></div>
+<div><label>DATE OF GRADUATION <span class="edit">CALENDAR</span></label><input id="f12" type="date"></div>
+<div><label>INTER <span class="edit">EDITABLE</span></label><input id="f13"></div>
+<div><label>DATE OF INTER <span class="edit">CALENDAR</span></label><input id="f14" type="date"></div>
+<div><label>MATRIC <span class="edit">EDITABLE</span></label><input id="f15"></div>
+<div><label>DATE OF MATRIC <span class="edit">CALENDAR</span></label><input id="f16" type="date"></div>
+<div><label>PROFESSIONAL <span class="edit">EDITABLE</span></label><input id="f17"></div>
+<div><label>Date of B.Ed <span class="edit">CALENDAR</span></label><input id="f18" type="date"></div>
+<div><label>Date of PTC <span class="edit">CALENDAR</span></label><input id="f19" type="date"></div>
+<div><label>Grade 16 <span class="edit">CALENDAR</span></label><input id="f20" type="date"></div>
+<div><label>Date of 16 Scale <span class="edit">CALENDAR</span></label><input id="f21" type="date"></div>
+<div><label>P.ID (Post) <span class="edit">EDITABLE</span></label><input id="f22"></div>
+<div><label>SEMIS ID <span class="edit">EDITABLE</span></label><input id="f23"></div>
+<div><label>School Name <span class="edit">EDITABLE</span></label><input id="f24"></div>
+<div><label>DDO Codes <span class="edit">EDITABLE</span></label><input id="f25"></div>
+<div><label>Contact No <span class="edit">EDITABLE</span></label><input id="f26"></div>
+<div><label>U/C Name <span class="edit">EDITABLE</span></label><input id="f27"></div>
+<div><label>Teaching Allowance <span class="edit">YES/NO ONLY</span></label><select id="f28" style="background:#fef9c3"><option>Select</option><option>Yes</option><option>No</option></select></div>
+<div><label>Hard Area Allowance <span class="edit">YES/NO ONLY</span></label><select id="f29" style="background:#fef9c3"><option>Select</option><option>Yes</option><option>No</option></select></div>
+</div>
+<button class="btnG" onclick="submitReq()">✅ Submit Correction - Admin Ko Bhejein</button>
+<div id="sMsg" style="text-align:center;color:green;font-weight:700;margin-top:10px"></div>
+</div>
+<div id="alogin" class="card" style="display:none">
+<h3 style="margin:0">Admin Login - NO EMAIL</h3><p style="font-size:12px;color:#64748b">Password: admin123 - Direct Open</p>
+<input id="apass" type="password" placeholder="admin123" style="max-width:300px"><br><br><button onclick="adminLogin()" style="background:#16a34a;color:white;border:none;padding:10px 18px;border-radius:6px;font-weight:700;cursor:pointer">Login</button>
+<div id="aMsg" style="color:red;font-size:12px;margin-top:8px"></div>
+</div>
+<div id="admin" class="card" style="display:none">
+<div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px"><h3 style="margin:0">Admin Panel - Final Corrections → Excel Save</h3><button onclick="exportCSV()" style="background:#0f5a28;color:white;border:none;padding:7px 14px;border-radius:6px;font-weight:700;cursor:pointer">📥 Export to Excel (CSV)</button></div>
+<div class="stats" style="margin:12px 0"><div class="st"><b id="aT">1492</b><span>Total</span></div><div class="st"><b id="aP">0</b><span>Pending</span></div><div class="st"><b id="aA">2</b><span>Approved</span></div></div>
+<div style="overflow:auto"><table id="atable" border="1" style="width:100%;border-collapse:collapse;font-size:12px"><thead style="background:#0f172a;color:white"><tr><th>P.ID LOCKED</th><th>Name</th><th>Teaching</th><th>Hard</th><th>Status</th><th>Action</th></tr></thead><tbody></tbody></table></div>
+</div>
+</div>
+<script>
+const EMP_DATA=[
+["1","257019","ANEEKA ANNY","GHULAM IRTAZA","Female","11055428","4420296966888","NATIONAL BANK","0098004243500203","1985-05-30","","","","","","","","MBA/B.Ed","","","","","PST (BPS-14)","407020417","GBPS:KHIPRO TOWN URDU","SN2570","03000000001","Khipro","Yes","No"],
+["10","39736","AKRAM","NANNU KHAN","Male","10321476","4420243572991","NATIONAL BANK","0098003109349927","1969-01-01","1988-06-01","","","","","","","MA","","","","","PST (BPS-16)","407020417","GBPS:KHIPRO TOWN URDU","SN2570","03013220085","Khipro","Yes","Yes"],
+["2","261300","FARAH NAZ","MIRZA ATIF BAIG","Female","11040631","4420285704642","MEEZAN BANK","0012320107618800","1984-08-27","2022-10-25","","","","","","","B.A/B.Ed","","","","","PST (BPS-14)","407020417","GBPS:KHIPRO TOWN URDU","SN2570","03362002889","Khipro","No","No"]
+];
+let allData=JSON.parse(localStorage.getItem('khipro_all')||"null");
+if(!allData){allData=EMP_DATA;while(allData.length<1492){allData.push([""+(allData.length+1),"","","","","10"+(1000000+allData.length),"","","","","","","","","","","","","","","","","","","","No","No"]);}localStorage.setItem('khipro_all',JSON.stringify(allData));}
+let reqs=JSON.parse(localStorage.getItem('khipro_req')||"[]");
+function upd(){let total=1492;let p=reqs.filter(r=>r.status=='Pending').length;let a=reqs.filter(r=>r.status=='Approved').length;document.getElementById('tT').innerText=total;document.getElementById('tP').innerText=p;document.getElementById('tA').innerText=a;document.getElementById('aT').innerText=total;document.getElementById('aP').innerText=p;document.getElementById('aA').innerText=a;}
+function show(id){['home','elogin','eform','alogin','admin'].forEach(x=>{let el=document.getElementById(x);if(el)el.style.display='none';});document.getElementById(id).style.display='block';if(id=='admin')render();}
+let cur=null;
+function empLogin(){let pid=document.getElementById('pidIn').value.trim().replace('.0','');if(!pid){document.getElementById('eMsg').innerText='P.ID likhein';return;}let found=allData.find(r=>String(r[5])==pid||String(r[5]).includes(pid));if(!found){document.getElementById('eMsg').innerText='Not Found, 11055428 try karein';return;}cur=found;for(let i=0;i<30;i++){let el=document.getElementById('f'+i);if(el)el.value=found[i]||"";}document.getElementById('f5').value=found[5];document.getElementById('wel').innerText='Welcome, '+found[2]+' ('+found[5]+')';document.getElementById('sub').innerText='P.ID # '+found[5]+' is LOCKED - FREEZE - NO EDIT | Baqi Editable';show('eform');}
+function submitReq(){if(!cur)return;let d={};for(let i=0;i<30;i++){let el=document.getElementById('f'+i);d['f'+i]=el?el.value:"";}d.pid=cur[5];d.name=cur[2];d.teach=document.getElementById('f28').value;d.hard=document.getElementById('f29').value;d.status='Pending';d.time=new Date().toLocaleString();let idx=reqs.findIndex(r=>r.pid==d.pid);if(idx>=0)reqs[idx]=d;else reqs.push(d);localStorage.setItem('khipro_req',JSON.stringify(reqs));document.getElementById('sMsg').innerHTML='✅ Submitted! P.ID '+d.pid+' LOCKED hai | Teaching: '+d.teach+' | Hard: '+d.hard+'<br>Admin Panel me Pending me aayega - Aap Excel Export kar sakte hain';upd();alert('Submitted!');}
+function adminLogin(){let p=document.getElementById('apass').value;if(p!=='admin123'){document.getElementById('aMsg').innerText='Wrong! admin123 likhein';return;}show('admin');}
+function render(){let tb=document.querySelector('#atable tbody');tb.innerHTML='';reqs.forEach((r,i)=>{let tr=document.createElement('tr');tr.innerHTML=`<td><b>${r.pid}</b></td><td>${r.name}</td><td>${r.teach}</td><td>${r.hard}</td><td>${r.status}</td><td>${r.status=='Pending'?`<button onclick="approve(${i})" style="background:#16a34a;color:white;border:none;padding:4px 10px;border-radius:4px;cursor:pointer">YES Approve</button>`:'Approved'}</td>`;tb.appendChild(tr);});if(reqs.length==0)tb.innerHTML='<tr><td colspan=6 style="text-align:center;color:#64748b">No Corrections Yet - Employee submit karega to yahan aayega</td></tr>';upd();}
+function approve(i){reqs[i].status='Approved';localStorage.setItem('khipro_req',JSON.stringify(reqs));render();alert('Approved!');}
+function exportCSV(){if(reqs.length==0){alert('Koi data nahi');return;}let csv='P.ID (LOCKED),Name,Teaching Allowance,Hard Area Allowance,Status,Timestamp\n';reqs.forEach(r=>{csv+=`"${r.pid}","${r.name}","${r.teach}","${r.hard}","${r.status}","${r.time}"\n`;});let blob=new Blob([csv],{type:'text/csv'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Khipro_FINAL_Corrected_Master_'+new Date().toISOString().split('T')[0]+'.csv';a.click();alert('📥 Excel Download Ho Gaya! Aap isko Excel me khol kar save kar lein');}
+upd();
+</script>
+</body>
+</html>
